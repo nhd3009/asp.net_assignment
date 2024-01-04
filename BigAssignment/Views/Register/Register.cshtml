@@ -1,0 +1,97 @@
+﻿
+@{
+    ViewData["Title"] = "Register";
+    Layout = "~/Views/Shared/_LayoutHomeAppliances.cshtml";
+}
+
+
+
+@model User
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Multi Shop</title>
+    <!-- Font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="../template/fonts//fontawesome-free-5.15.3-web/css/all.min.css">
+    <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <!-- CSS -->
+    <!-- CSS -->
+    <link rel="stylesheet" href="../template/css/base.css">
+    <link rel="stylesheet" href="../template/css/main.css">
+    @*<link rel="stylesheet" href="../template/css/style.css">*@
+</head>
+<body>
+    <div class="container">
+        <h2>Đăng Ký</h2>   @using (Html.BeginForm("Register", "Register", FormMethod.Post))
+            {
+
+        <div class="row">
+
+         
+                <div class="row">
+
+                    <div class="input-field col s6">
+                        @Html.LabelFor(m => m.Fullname)
+                        @Html.TextBoxFor(m => m.Fullname, "", new { @class = "form-control rounded-0 shadow-none mb-3", @placeholder = "Last Name" })
+                        @Html.ValidationMessageFor(m => m.Fullname, "", new { @class = "badge badge-danger" })
+
+                    </div>
+                    <div class="input-field col s6">
+                        @Html.LabelFor(m => m.Name)
+                        @Html.TextBoxFor(m => m.Name, "", new { @class = "form-control rounded-0 shadow-none mb-3", @placeholder = "First Name" })
+                        @Html.ValidationMessageFor(m => m.Name, "", new { @class = "badge badge-danger" })
+
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-field col s12">
+                        @Html.LabelFor(m => m.Email)
+                        @Html.TextBoxFor(m => m.Email, "", new { @class = "form-control rounded-0 shadow-none mb-3", @placeholder = "Email" })
+                        @Html.ValidationMessageFor(m => m.Email, "", new { @class = "badge badge-danger" })
+                        @if (ViewBag.error != null)
+                        {
+                            <span class="badge badge-danger">@ViewBag.error</span>
+                        }
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-field col s12">
+                        @Html.LabelFor(m => m.Password)
+                        @Html.PasswordFor(m => m.Password, new { @class = "form-control rounded-0 shadow-none mb-3", @placeholder = "Password" })
+                        @Html.ValidationMessageFor(m => m.Password, "", new { @class = "badge badge-danger" })
+
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-field col s12">
+                        @Html.LabelFor(m => m.Phone)
+                        @Html.TextBoxFor(m => m.Phone, "", new { @class = "form-control rounded-0 shadow-none mb-3", @placeholder = "Phone" })
+                        @Html.ValidationMessageFor(m => m.Phone, "", new { @class = "badge badge-danger" })
+
+                    </div>
+                </div>
+                <button class="btn btn-primary rounded-0 shadow-none mb-3" type="submit">Đăng Ký</button>
+
+            
+        </div>}
+
+        <p class="text-center">Bạn đã có tài khoản? <a href="@Url.Action("Login","Auth")" class="text-primary">Đăng Nhập</a></p>
+
+    </div>
+
+
+    <!-- Bootstrap -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Jquery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,67 @@
+﻿@model IEnumerable<BigAssignment.Models.ListOrder>
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
+@{
+    ViewData["Title"] = "OrderTrashList";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h1>OrderTrashList</h1>
+
+<p>
+    <a asp-action="OrderList" asp-controller="Order">Get Back to List</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.CustomerName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.SAmount)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Status)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CreateDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ExportDate)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.CustomerName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SAmount)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Status)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CreateDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ExportDate)
+            </td>
+            <td>
+                    <form asp-action="ReverseOrder" method="post">
+                                            <input type="hidden" name="orderId" value="@item.Id" />
+                                            <button type="submit" class="btn btn-success">Put back to List</button>
+                    </form>
+
+                        <form asp-action="DeleteOrder" method="get">
+                                                <input type="hidden" name="orderId" value="@item.Id" />
+                                                <button type="submit" class="btn btn-danger">Delete</button>
+                                </form>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

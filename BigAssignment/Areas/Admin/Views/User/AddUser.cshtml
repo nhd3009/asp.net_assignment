@@ -1,0 +1,123 @@
+﻿@model BigAssignment.Models.User
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@{
+    ViewData["Title"] = "AddUser";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+@using (Html.BeginForm("AddUser", "User", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+
+    <section class="content py-2">
+        <div class="container-fluid">
+            <!--Content-->
+            <div class="card">
+                <div class="card-header">
+                    <div class="row">
+                        <div class="col-8">
+                            <h5 class="text-csm">@ViewBag.Title</h5>
+                        </div>
+                        <div class="col-4">
+                            <div class="float-right pt-1">
+                                <button type="submit" class="btn btn-primary btn-sm">
+                                    <i class="fas fa-save"></i>&nbsp; Save
+                                </button>
+                                <button type="button" class="btn btn-danger btn-sm">
+                                    <a href="~/admin/UserList" class="text-white"><i class="fas fa-door-open"></i>&nbsp; Thoát</a>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="form-horizontal">
+                        <div class="row">
+                            <div class="col-9">
+
+                                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                                <div class="form-group">
+                                    @Html.Label("Họ tên","Họ tên", htmlAttributes: new { @class = "control-label col-12" })
+                                    <div class="">
+                                        @Html.EditorFor(model => model.Fullname, new { htmlAttributes = new { @class = "form-control", placeholder = "Họ tên" } })
+                                        @Html.ValidationMessageFor(model => model.Fullname, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    @Html.Label("Tên truy cập","Tên truy cập", htmlAttributes: new { @class = "control-label col-12" })
+                                    <div class="">
+                                        @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control", placeholder = "Họ tên" } })
+                                        @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    @Html.Label("Địa chỉ","Địa chỉ", htmlAttributes: new { @class = "control-label col-12" })
+                                    <div class="">
+                                        @Html.EditorFor(model => model.Address, new { htmlAttributes = new { @class = "form-control", placeholder = "Họ tên" } })
+                                        @Html.ValidationMessageFor(model => model.Address, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    @Html.Label("Email","Email", htmlAttributes: new { @class = "control-label col-12" })
+                                    <div class="">
+                                        @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control", placeholder = "Email" } })
+                                        @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    @Html.Label("Số điện thoại","Số điện thoại", htmlAttributes: new { @class = "control-label col-12" })
+                                    <div class="">
+                                        @Html.EditorFor(model => model.Phone, new { htmlAttributes = new { @class = "form-control", placeholder = "Số điện thoại" } })
+                                        @Html.ValidationMessageFor(model => model.Phone, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    @Html.Label("Mật khẩu","Mật khẩu", htmlAttributes: new { @class = "control-label col-12" })
+                                    <div class="">
+                                        @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control", placeholder = "Mật khẩu", type = "password" } })
+                                        @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    @Html.Label("Nhập lại mật khẩu","Nhập lại mật khẩu", htmlAttributes: new { @class = "control-label col-12" })
+                                    <div class="">
+                                        @Html.Editor("RePassword", new { htmlAttributes = new { @class = "form-control", placeholder = "Nhập lại mật khẩu", type = "password" } })
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-3">
+                                <form method="post" enctype="multipart/form-data">
+                                    <div class="form-group">
+                                        <label for="image">Chọn ảnh đại diện:</label>
+                                        <input type="file" id="image" name="Image" class="form-control-file">
+                                    </div>
+                                </form>
+                                <div class="form-group">
+                                    @Html.Label("Xét quyền","Xét quyền", htmlAttributes: new { @class = "control-label col-12" })
+                                    <div class="">
+                                        @Html.DropDownListFor(model => model.Access, new[] { new SelectListItem { Value = "0", Text = "Customer" }, new SelectListItem { Value = "1", Text = "Administrator" } }, new { @class = "form-control" })
+                                        @Html.ValidationMessageFor(model => model.Access, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    @Html.Label("Giới tính","Giới tính", htmlAttributes: new { @class = "control-label col-12" })
+                                    <div class="">
+                                        @Html.DropDownListFor(model => model.Gender, new[] { new SelectListItem { Value = "1", Text = "Nam" }, new SelectListItem { Value = "2", Text = "Nữ" }, new SelectListItem { Value = "3", Text = "Khác" } }, new { @class = "form-control" })
+                                        @Html.ValidationMessageFor(model => model.Gender, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    @Html.Label("Trạng thái","Trạng thái", htmlAttributes: new { @class = "control-label col-12" })
+                                    <div class="">
+                                        @Html.DropDownListFor(model => model.Status, new[] { new SelectListItem { Value = "1", Text = "Hoạt động" }, new SelectListItem { Value = "2", Text = "Chưa hoạt động" } }, new { @class = "form-control" })
+                                        @Html.ValidationMessageFor(model => model.Status, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+}

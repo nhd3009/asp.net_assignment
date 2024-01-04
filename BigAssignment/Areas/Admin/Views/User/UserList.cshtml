@@ -1,0 +1,135 @@
+﻿@using BigAssignment.Models;
+@using X.PagedList.Mvc.Core;
+@model X.PagedList.IPagedList<User>
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
+@{
+    ViewData["Title"] = "UserList";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h1>UserList</h1>
+@if (TempData["Message"] != null)
+{
+    <div class="alert alert-danger">
+        @TempData["Message"]
+    </div>
+}
+
+<p>
+    <a asp-action="AddUser">Create New</a>
+</p>
+
+<p>
+    <a asp-area="admin" asp-controller="User" asp-action="UserTrashList" class="btn btn-danger">User Trash List</a>
+</p>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                FullName
+            </th>
+            <th>
+                Tên
+            </th>
+            @*<th>
+            @Html.DisplayNameFor(model => model.Password)
+            </th>
+            <th>
+            @Html.DisplayNameFor(model => model.Email)
+            </th>
+            <th>
+            @Html.DisplayNameFor(model => model.Gender)
+            </th>
+            <th>
+            @Html.DisplayNameFor(model => model.Phone)
+            </th>
+            <th>
+            @Html.DisplayNameFor(model => model.Address)
+            </th>
+            <th>
+            @Html.DisplayNameFor(model => model.Image)
+            </th>
+            <th>
+            @Html.DisplayNameFor(model => model.Access)
+            </th>
+            <th>
+            @Html.DisplayNameFor(model => model.Status)
+            </th>
+            <th>
+            @Html.DisplayNameFor(model => model.CreatedAt)
+            </th>
+            <th>
+            @Html.DisplayNameFor(model => model.CreatedBy)
+            </th>
+            <th>
+            @Html.DisplayNameFor(model => model.UpdatedAt)
+            </th>
+            <th>
+            @Html.DisplayNameFor(model => model.UpdatedBy)
+            </th>*@
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Fullname)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                @*<td>
+            @Html.DisplayFor(modelItem => item.Password)
+            </td>
+            <td>
+            @Html.DisplayFor(modelItem => item.Email)
+            </td>
+            <td>
+            @Html.DisplayFor(modelItem => item.Gender)
+            </td>
+            <td>
+            @Html.DisplayFor(modelItem => item.Phone)
+            </td>
+            <td>
+            @Html.DisplayFor(modelItem => item.Address)
+            </td>
+            <td>
+            @Html.DisplayFor(modelItem => item.Image)
+            </td>
+            <td>
+            @Html.DisplayFor(modelItem => item.Access)
+            </td>
+            <td>
+            @Html.DisplayFor(modelItem => item.Status)
+            </td>
+            <td>
+            @Html.DisplayFor(modelItem => item.CreatedAt)
+            </td>
+            <td>
+            @Html.DisplayFor(modelItem => item.CreatedBy)
+            </td>
+            <td>
+            @Html.DisplayFor(modelItem => item.UpdatedAt)
+            </td>
+            <td>
+            @Html.DisplayFor(modelItem => item.UpdatedBy)
+            </td>*@
+                <td>
+                    <div class="d-flex">
+                        <a asp-action="EditUser" asp-route-userId="@item.Id" class="btn btn-primary" style="margin: 5px;">Edit</a>
+                        <a asp-action="UserDetail" asp-route-userId="@item.Id" class="btn btn-primary" style="margin: 5px;">Details</a>
+                        <form asp-action="PutUserToTrash" method="post" style="margin: 5px;">
+                            <input type="hidden" name="userID" value="@item.Id" />
+                            <button type="submit" class="btn btn-danger 1">Put to Trash</button>
+                        </form>
+                    </div>
+                    
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

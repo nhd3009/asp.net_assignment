@@ -1,0 +1,73 @@
+﻿@model IEnumerable<BigAssignment.Models.ListOrder>
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@{
+    ViewData["Title"] = "OrderList";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h1>OrderList</h1>
+
+<a class="btn btn-primary" asp-action="OrderTrashList" asp-controller="Order">Trash</a>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.CustomerName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.SAmount)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Status)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CreateDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ExportDate)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.CustomerName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SAmount)
+            </td>
+            <td>
+                    @if (item.Status == 1)
+                    {
+                        <span>Chờ xử lý</span>
+                    }
+                    else if(item.Status == 2)
+                    {
+                        <span>Đang xử lý</span>
+                    }
+                    else if(item.Status == 3)
+                    {
+                        <span>Đã hoàn thành</span>
+                    }
+                </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CreateDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ExportDate)
+            </td>
+            <td>
+                <a class="btn btn-primary" asp-action="UpdateOrder" asp-controller="Order" asp-route-orderId="@item.Id">Update</a>
+                <a class="btn btn-secondary" asp-action="OrderDetail" asp-route-orderId="@item.Id">Details</a>
+                    <form style="margin:5px;" asp-action="CancelOrder" method="post">
+                        <input type="hidden" name="orderId" value="@item.Id" />
+                        <button type="submit" class="btn btn-danger">Put to Trash</button>
+                    </form>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

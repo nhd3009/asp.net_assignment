@@ -1,0 +1,75 @@
+﻿<div class="header__mid container-fluid">
+    <div class="row bg-light py-3 px-xl-5 d-none d-lg-flex">
+        <div class="col-4">
+            <a href="#" class="logo">
+                <span class="h1 text-uppercase text-primary bg-dark px-2">Multi</span>
+                <span class="h1 text-uppercase text-dark bg-primary px-2">Shop</span>
+            </a>
+        </div>
+       <!-- form search -->
+        <div class="col-4">
+            <form asp-controller="Home" asp-action="Search" method="get" class="input-group">
+               
+                    <input type="text" class="form-control shadow-none rounded-0" placeholder="Tìm kiếm sản phẩm" name="key" value=>
+                <button type="button" class="header-search__btn btn shadow-none rounded-0">
+                    <i class="fas fa-search"></i>
+                </button>
+            </form>
+        </div>
+        <div class="col-4">
+            <div class="header-mid__contact text-end">
+                <p>Dịch Vụ Khách Hàng</p>
+                <h5>+84 96 783 1727</h5>
+            </div>
+        </div>
+    </div>
+</div>
+<!--Danh mục sản phẩm-->
+<div class="header__bottom container-fluid bg-dark mb-30">
+    <div class="row px-xl-5">
+        <div class="col-3 position-relative d-none d-lg-block">
+            <a class="navbar-category-wrap btn d-flex justify-content-between align-items-center bg-primary collapsed" data-bs-toggle="collapse" data-bs-target="#collapseNavbar" aria-expanded="false" aria-controls="collapseNavbar">
+                <h6>
+                    <i class="fas fa-bars me-2"></i>
+                    Danh mục
+                </h6>
+                <i class="fas fa-angle-down"></i>
+            </a>
+                       @await Component.InvokeAsync("Category")
+        </div>
+        <div class="col-lg-9">
+            <nav class="navbar navbar-expand-lg navbar-dark bg-dark py-3 py-lg-0 h-100">
+                <a href="#" class="logo d-md-block d-lg-none">
+                    <span class="h1 text-uppercase text-dark bg-light px-2">Multi</span>
+                    <span class="h1 text-uppercase text-light bg-primary px-2">Shop</span>
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                @await Component.InvokeAsync("Menu")
+                
+                <div class="navbar-list collapse navbar-collapse justify-content-between" id="navbarCollapse">
+                    <div class="navbar-nav">
+                        <a href="#" class="nav-list_link py-1 nav-link active">Trang chủ</a>
+                        <a href="#" class="nav-list_link py-1 nav-link">Bài viết</a>
+                        <a href="#" class="nav-list_link py-1 nav-link">Liên hệ</a>
+                    </div>
+                    <div class="navbar-action navbar-nav d-none d-lg-flex">
+                        <a href="#" class="navbar-action__item me-3 d-flex align-items-center">
+                            <i class="fas fa-heart text-primary me-1"></i>
+                            <span class="navbar-action-item__quantity text-light border border-secondary rounded-circle d-block">0</span>
+                        </a>
+                        <a href="#" class="navbar-action__item d-flex align-items-center">
+                            <i class="fas fa-shopping-cart text-primary me-1"></i>
+                            <span class="navbar-action-item__quantity text-light border border-secondary rounded-circle d-block">0</span>
+                        </a>
+                        <a href="@Url.Action("Logout","Logout")" id="logout-btn" class="navbar-action__item d-flex align-items-center">
+                            <i class="fa fa-sign-out" style="font-size:24px"></i>
+
+                        </a>
+                    </div>
+                </div>
+            </nav>
+        </div>
+    </div>
+</div>

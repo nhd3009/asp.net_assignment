@@ -1,0 +1,35 @@
+﻿@model List<Category>
+
+    <nav class="navbar-category navbar-light bg-light position-absolute collapse" id="collapseNavbar">
+        <div class="navbar-nav w-100">
+            <div class="nav-item dropend">
+                
+                @foreach(var itemParent in Model){
+                var count = 0;
+                @if (itemParent.ParentId == 0) {
+                        <a href="#" class="dropend-toggle nav-link d-flex align-items-center justify-content-between w-100" data-bs-toggle="dropdown" aria-expanded="false">
+                            @itemParent.Name
+                            <i class="fas fa-angle-right"></i>
+                        </a>
+                    }
+                    <div class="dropdown-menu rounded-0 border-0">
+                        @foreach (var childItem in Model)
+                        { 
+                        @if (childItem.ParentId == itemParent.Id)
+                        {
+                            count++;
+                            <a asp-controller="Home" asp-action="ProductByType"  asp-route-cateID="@childItem.Id" ction class="dropdown-item">@childItem.Name</a>
+                        }
+                       
+
+
+                }
+                    @if (count == 0)
+                    {
+                        <a asp-controller="Home" asp-action="ProductByType" asp-route-cateID="@itemParent.Id" ction class="dropdown-item">@itemParent.Name</a>
+                    }
+                    </div>
+            }       
+            </div>
+        </div>
+    </nav>

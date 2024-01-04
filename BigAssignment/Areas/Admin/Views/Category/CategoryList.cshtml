@@ -1,0 +1,132 @@
+﻿@using BigAssignment.Models;
+@using X.PagedList.Mvc.Core;
+@model X.PagedList.IPagedList<Category>
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
+@{
+    ViewData["Title"] = "CategoryList";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h1>CategoryList</h1>
+
+<p>
+    <a asp-action="AddCategory">Create New</a>
+</p>
+
+<p>
+    <a asp-area="admin" asp-controller="Category" asp-action="CategoryTrashList" class="btn btn-danger">Product Trash List</a>
+</p>
+
+@if (TempData["Message"] != null)
+{
+    <div class="alert alert-danger">
+        @TempData["Message"]
+    </div>
+}
+
+
+<h2>@TempData["Message"]</h2>
+<table class="table even-rows">
+    <thead>
+        <tr>
+            <th>
+                name
+            </th>
+            @*<th>
+                @Html.DisplayNameFor(model => model.Slug)
+            </th>*@
+            <th>
+                Cấp
+            </th>
+            @*<th>
+                @Html.DisplayNameFor(model => model.Orders)
+            </th>*@
+            <th>
+                Meta Key
+            </th>
+            @*<th>
+                @Html.DisplayNameFor(model => model.MetaDesc)
+            </th>*@
+            @*<th>
+                @Html.DisplayNameFor(model => model.Status)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CreatedAt)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CreatedBy)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.UpdatedAt)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.UpdatedBy)
+            </th>*@
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            @*<td>
+                @Html.DisplayFor(modelItem => item.Slug)
+            </td>*@
+                <td>
+                    @item.ParentId
+                </td>
+            @*<td>
+                @Html.DisplayFor(modelItem => item.Orders)
+            </td>*@
+            <td>
+                @Html.DisplayFor(modelItem => item.MetaKey)
+            </td>
+            @*<td>
+                @Html.DisplayFor(modelItem => item.MetaDesc)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Status)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CreatedAt)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CreatedBy)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.UpdatedAt)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.UpdatedBy)
+            </td>*@
+            <td>
+                <a asp-action="EditCategory" asp-route-categoryId="@item.Id">Edit</a> |
+                <a asp-action="CategoryDetail" asp-route-categoryId="@item.Id">Details</a> |
+                    <form asp-action="PutCategoryToTrash" method="post">
+                            <input type="hidden" name="categoryId" value="@item.Id" />
+                            <button type="submit" class="btn btn-danger">Put to Trash</button>
+                    </form>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+
+@Html.PagedListPager(Model, page => Url.Action("categoryList", new {page = page}),
+new X.PagedList.Web.Common.PagedListRenderOptions(){
+    LiElementClasses = new List<String> {"page-item"},
+    PageClasses = new List<String> {"page-link"}
+})
+
+<style>
+    .even-rows tr:nth-child(even) {
+        background-color: #e8e9fe;
+    }
+
+    .even-rows tr:nth-child(odd) {
+        background-color: #e8c5fe;
+    }
+</style>

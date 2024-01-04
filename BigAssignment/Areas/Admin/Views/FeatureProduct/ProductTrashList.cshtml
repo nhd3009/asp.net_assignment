@@ -1,0 +1,66 @@
+﻿@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
+@{
+    ViewData["Title"] = "ProductList";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+@model IEnumerable<BigAssignment.Models.ProductCategory>
+
+<h2>@TempData["Message"]</h2>
+
+<section class="content">
+    <div class="container-fluid">
+        <!--Content-->
+        <div class="card">
+            <div class="card-header">
+                <div class="row">
+                    <div class="col-8">
+                        <h5 class="text-csm">@ViewBag.Title</h5>
+                    </div>
+                    <div class="col-4">
+                        <div class="float-right pt-1">
+                            <button type="button" class="btn btn-danger btn-sm">
+                                <a asp-action="ProductList" asp-controller="FeatureProduct" class="text-white"> <i class="fas fa-sign-out-alt "></i>&nbsp; Thoát</a>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- /.card-header -->
+            <div class="card-body">
+                <table id="product" class="table table-bordered table-hover">
+                    <thead>
+                        <tr>
+                            <th class="text-center no-sort" style="width:3rem;">ID</th>
+                            <th class="no-sort text-center">Hình ảnh</th>
+                            <th class="">Tên sản phẩm</th>
+                            <th class="no-sort">Danh mục</th>
+
+                            <th class="no-sort text-center" style="width:10rem">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td class="text-center">@Html.DisplayFor(modelItem => item.ProductId)</td>
+                                <td><img src="@Url.Content("../template/images/products/" + item.ProductImg)" alt="Error" width="70" class="d-block m-auto" />  </td>
+                                <td><a href="#">@Html.DisplayFor(modelItem => item.ProductName)</a>  </td>
+                                <td>@Html.DisplayFor(modelItem => item.CategoryName)</td>
+
+                                <td class="text-center">
+                                    <a class="btn btn-danger" asp-action="DeleteProduct" asp-controller="FeatureProduct" asp-route-productId="@item.ProductId">Delete</a>
+                                    <form asp-action="PutProductToTrash" method="post">
+                                        <input type="hidden" name="productId" value="@item.ProductId" />
+                                        <button type="submit" class="btn btn-success">Put to List</button>
+                                    </form>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</section>

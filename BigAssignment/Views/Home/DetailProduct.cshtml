@@ -1,0 +1,142 @@
+﻿@model BigAssignment.Models.Product
+
+@{
+    ViewData["Title"] = "DetailProduct";
+    Layout = "~/Views/Shared/_LayoutDetailProduct.cshtml";
+}
+
+<!-- Product detail -->
+<div class="container-fluid pb-5">
+    <div class="row px-xl-5">
+        <div class="col-lg-5 mb-30">
+            <div class="product-detail-img row">
+                <img class="product-detail-img__represent h-100 w-100" src=@Url.Content("../template/images/products/" + @Model.Image) alt="">
+                <div class="col-12">
+                    <div class="product-detail-img__slider owl-carousel mt-3">
+                        <div class="product-detail-img-slide__item">
+                            <img class="h-100 w-100" src=@Url.Content("../template/images/products/" + Model.Image) alt="">
+                        </div>
+                        <div class="product-detail-img-slide__item">
+                            <img class="h-100 w-100" src=@Url.Content("../template/images/products/" + Model.Image) alt="">
+                        </div>
+                        <div class="product-detail-img-slide__item">
+                            <img class="h-100 w-100" src=@Url.Content("../template/images/products/" + Model.Image) alt="">
+                        </div>
+                        <div class="product-detail-img-slide__item">
+                            <img class="h-100 w-100" src=@Url.Content("../template/images/products/" + Model.Image) alt="">
+                        </div>
+                        <div class="product-detail-img-slide__item">
+                            <img class="h-100 w-100" src=@Url.Content("../template/images/products/" + Model.Image) alt="">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-7 mb-30">
+            <div class="product-detail bg-light h-100">
+                <h3 class="text-dark">@Model.Name</h3>
+                <div class="d-flex mb-3">
+                    <div class="text-primary me-2">
+                        <small class="star__icon fas fa-star"></small>
+                        <small class="star__icon fas fa-star"></small>
+                        <small class="star__icon fas fa-star"></small>
+                        <small class="star__icon fas fa-star-half-alt"></small>
+                        <small class="star__icon far fa-star"></small>
+                    </div>
+                    <small class="pt-1">(99 Reviews)</small>
+                </div>
+                @{
+                    var discountPrice = Model.Price - (Model.Price * Model.Discount / 100);
+                    string formattedPrice = discountPrice.ToString("#,##0.##");
+                }
+                <h6 class="text-muted ms-2 text-decoration-line-through">@Model.Price.ToString("#,##0.##") VND</h6>
+                <h3 class="text-dark mb-4 " id="prices">@formattedPrice VND</h3>
+                <p class="text-dark mb-4 " ></p>
+                @Html.Raw(Model.Description)
+                <div class="d-flex mb-4 pt-2">
+                    <div class="input-group product-quantity me-3">
+                        <button class="btn btn-square btn-primary rounded-0">
+                            <i class="fas fa-minus"></i>
+                        </button>
+                        <input type="text" class="form-control shadow-none rounded-0" value="1">
+                        <button class="btn btn-square btn-primary rounded-0">
+                            <i class="fas fa-plus"></i>
+                        </button>
+                    </div>
+                    <a asp-controller="Cart" asp-action="Add" asp-route-idProduct="@Model.Id" asp-route-quantityProduct="@Model.Quantity" id="buy-btn " class="btn btn-primary rounded-0 px-3">
+                        <i class="fas fa-shopping-cart"></i>
+                        Add To Cart
+                    </a>
+                </div>
+                <div class="d-flex pt-2">
+                    <strong class="text-dark me-2">Share on:</strong>
+                    <div class="d-inline-flex">
+                        <a href="#" class="text-dark px-2"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="text-dark px-2"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="text-dark px-2"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="text-dark px-2"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row px-xl-5">
+        <div class="col">
+            <div class="tab bg-light">
+                <div class="tab-navbar mb-4">
+                    <button class="tab-navbar__item active">Description</button>
+                    <button class="tab-navbar__item">Reviews (<span class="tab-navbar-item__quantity-reviews">2</span>)</button>
+                </div>
+                <div class="tab-content">
+                    <div class="tab-content-item active" id="tab-pane-description">
+                        <h4 class="tab-content-item__heading mb-3">Description</h4>
+                        @Html.Raw(Model.Detail)
+                    </div>
+                    
+                    <div class="tab-content-item" id="tab-pane-review">
+                        <h4 class="tab-content-item__heading"><span class="tab-navbar-item__quantity-reviews">2</span> reviews for "@Model.Name"</h4>
+                        <div class="tab-content-review-wrap mt-4">
+                            <div class="tab-content-review">
+                                <div class="tab-content-review-body">
+                                    <h6 class="mb-2">
+                                        <span class="tab-content-review-body__user-name">John Doe</span> - Đã mua: <span class="tab-content-review-body__info-order">Black/S</span>
+                                    </h6>
+                                    <div class="text-primary mb-2">
+                                        <i class="star__icon fas fa-star"></i>
+                                        <i class="star__icon fas fa-star"></i>
+                                        <i class="star__icon fas fa-star"></i>
+                                        <i class="star__icon fas fa-star-half-alt"></i>
+                                        <i class="star__icon far fa-star"></i>
+                                    </div>
+                                    
+                                </div>
+                                <span class="tab-content-review-body__time">25/01/2021</span>
+                            </div>
+                            <div class="tab-content-review__response">
+                                Diam amet duo labore stet elitr ea clita ipsum, tempor labore accusam ipsum et no at. Kasd diam tempor rebum magna dolores sed sed eirmod ipsum.
+                            </div>
+                        </div>
+                        <div class="tab-content-review-wrap mt-4">
+                            <div class="tab-content-review">
+                                <div class="tab-content-review-body">
+                                    <h6 class="mb-2">
+                                        <span class="tab-content-review-body__user-name">John Doe</span> - Đã mua: <span class="tab-content-review-body__info-order">Black/S</span>
+                                    </h6>
+                                    <div class="text-primary mb-2">
+                                        <i class="star__icon fas fa-star"></i>
+                                        <i class="star__icon fas fa-star"></i>
+                                        <i class="star__icon fas fa-star"></i>
+                                        <i class="star__icon fas fa-star-half-alt"></i>
+                                        <i class="star__icon far fa-star"></i>
+                                    </div>
+                                  
+                                </div>
+                                <span class="tab-content-review-body__time">@Model.CreatedAt</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

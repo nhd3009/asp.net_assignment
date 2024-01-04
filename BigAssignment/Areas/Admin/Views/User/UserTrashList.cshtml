@@ -1,0 +1,61 @@
+﻿@model IEnumerable<BigAssignment.Models.User>
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
+@{
+    ViewData["Title"] = "UserTrashList";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h1>UserTrashList</h1>
+
+<a asp-action="UserList" class="btn btn-primary 1">Back to List</a>
+<section class="content py-2">
+    <div class="container-fluid">
+        <!--Content-->
+        <div class="card">
+            <div class="card-header">
+                <div class="row">
+                    <div class="col-8">
+                        <h5 class="text-csm">@ViewBag.Title</h5>
+                    </div>
+                </div>
+            </div>
+            <!-- /.card-header -->
+            <div class="card-body">
+                <table id="product" class="table table-bordered table-hover">
+                    <thead>
+                        <tr>
+                            <th class="no-sort text-center" style="width:3rem;">ID</th>
+                            <th class="no-sort">Họ và tên</th>
+                            <th class="no-sort">Email</th>
+                            <th class="no-sort">Phone</th>
+                            <th class="no-sort text-center" style="width:7rem">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td class="text-center">@Html.DisplayFor(modelItem => item.Id)</td>
+                                <td><a href="#">@Html.DisplayFor(modelItem => item.Fullname)</a> </td>
+                                <td><a href="#">@Html.DisplayFor(modelItem => item.Email)</a>  </td>
+                                <td><text>0</text>@Html.DisplayFor(modelItem => item.Phone)</td>
+                                <td class="text-center">
+                                    <form asp-action="PutUserToTrash" method="post">
+                                        <input type="hidden" name="userId" value="@item.Id" />
+                                        <button type="submit" class="btn btn-success">Put Back To List</button>
+                                    </form>
+
+                                    <form asp-action="DeleteUser" method="get">
+                                        <input type="hidden" name="userID" value="@item.Id" />
+                                        <button type="submit" class="btn btn-danger">Delete</button>
+                                    </form>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</section>

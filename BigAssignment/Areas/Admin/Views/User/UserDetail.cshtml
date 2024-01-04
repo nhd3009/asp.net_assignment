@@ -1,0 +1,71 @@
+﻿@model BigAssignment.Models.User
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
+@{
+    ViewData["Title"] = "UserDetail";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+
+<section class="content my-2">
+    <div class="container-fluid">
+        <!--Content-->
+        <div class="card">
+            <div class="card-header">
+                <div class="row">
+                    <div class="col-8">
+                        <h5 class="text-csm">@ViewBag.Title</h5>
+                    </div>
+                    <div class="col-4">
+                        <div class="float-right pt-1">
+                            <button type="button" class="btn btn-primary btn-sm">
+                                <a asp-action="UserList" class="text-white"><i class="fas fa-pen"></i>&nbsp; Quay lại</a>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- /.card-header -->
+            <div class="card-body">
+                <table class="table table-bordered table-hover">
+
+                    <tr>
+                        <th scope="col"> @Html.DisplayNameFor(model => model.Id)</th>
+                        <td scope="col">  @Html.DisplayFor(model => model.Id)</td>
+                    </tr>
+                    <tr>
+                        <th scope="col"> @Html.DisplayNameFor(model => model.Fullname)</th>
+                        <td scope="col">  @Html.DisplayFor(model => model.Fullname)</td>
+                    </tr>
+
+                    <tr>
+                        <th scope="col"> @Html.DisplayNameFor(model => model.Name)</th>
+                        <td scope="col">  @Html.DisplayFor(model => model.Name)</td>
+                    </tr>
+                    <tr>
+                        <th scope="col"> @Html.DisplayNameFor(model => model.Password)</th>
+                        <td scope="col">  @Html.DisplayFor(model => model.Password)</td>
+                    </tr>
+                    <tr>
+                        <th scope="col"> @Html.DisplayNameFor(model => model.CreatedAt)</th>
+                        <td scope="col">  @Html.DisplayFor(model => model.CreatedAt)</td>
+                    </tr>
+                    <tr>
+                        <th scope="col"> @Html.DisplayNameFor(model => model.CreatedBy)</th>
+                        <td scope="col">  @Html.DisplayFor(model => model.CreatedBy)</td>
+                    </tr>
+                    <tr>
+                        <th scope="col"> @Html.DisplayNameFor(model => model.UpdatedAt)</th>
+                        <td scope="col">  @Html.DisplayFor(model => model.UpdatedAt)</td>
+                    </tr>
+                    <tr>
+                        <th scope="col"> @Html.DisplayNameFor(model => model.UpdatedBy)</th>
+                        <td scope="col">  @Html.DisplayFor(model => model.UpdatedBy)</td>
+                    </tr>
+
+
+                </table>
+            </div>
+        </div>
+    </div>
+</section>

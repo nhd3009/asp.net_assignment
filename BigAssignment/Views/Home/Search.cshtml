@@ -1,0 +1,89 @@
+﻿@using X.PagedList.Mvc.Core;
+@using X.PagedList.Web.Common;
+@model X.PagedList.IPagedList<Product>
+@{
+    ViewBag.Title = "Kết quả tìm kiếm: " + (ViewBag.Count > 0 ? "Có " + ViewBag.Count + " kết quả phù hợp" : "Không tìm thấy kết quả phù hợp");
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="" style="background:#f3f3f3">
+    @if (Model.Count() == 0)
+    {
+        
+        <div class="container-91 bg-white mb-3" style="background: #fff;min-height:300px">
+            <div class="py-3" style="background:#eaeaea">
+                <small class="font-weight-bold ml-3">
+                    Không tìm thấy kết quả phù hợp
+                </small>
+            </div>
+            <div class="my-3">
+                <small class="font-weight-bold ml-3"> Để tìm thấy kết quả chính xác hơn bạn vui lòng:</small>
+                <ul class="list-unstyled">
+                    <li class="ml-4"><small class="font-weight-bold ml-3">- Kiểm tra lại lỗi chính tả.</small></li>
+                    <li class="ml-4"><small class="font-weight-bold ml-3">- Thử lại với từ khóa khác.</small></li>
+                </ul>
+            </div>
+        </div>
+    }
+    else
+    {
+        <div class="container-91 bg-white mb-4" style="background: #fff;">
+            <div class="py-3" style="background:#eaeaea">
+                <small class="ml-3">
+                    Tìm thấy <b class="d-inline">@ViewBag.Count</b> kết quả phù hợp
+                </small>
+            </div>
+            <div class="row px-xl-5">
+                @foreach (var item in Model)
+                {
+                    <div class="col-lg-3 col-md-4 col-sm-6 pb-1">
+                        <div class="product-item bg-light mb-4">
+                            <div class="product-img">
+                                <img class="w-100" src="@Url.Content("../template/images/products/" + @item.Image)">
+                                <div class="product-action">
+                                    <a class="btn btn-outline-dark btn-square rounded-0" href="#"><i class="fa fa-shopping-cart"></i></a>
+                                    <a class="btn btn-outline-dark btn-square rounded-0" href="#"><i class="far fa-heart"></i></a>
+                                </div>
+                            </div>
+                            <div class="text-center py-4 product-info">
+                                <a asp-controller="Home" asp-action="DetailProduct" asp-route-IdProduct="@item.Id" class="product-info__name">@item.Name</a>
+                                <div class="d-flex align-items-center justify-content-center mt-2">
+                                    @{
+                                        var discountPrice = item.Price - (item.Price * item.Discount / 100);
+                                        string formattedPrice = discountPrice.ToString("#,##0.##");
+                                    }
+                                    <h5>@formattedPrice VND</h5>
+                                    <h6 class="text-muted ms-2 text-decoration-line-through">@item.Price.ToString("#,##0.##")</h6>
+                                </div>
+                                <div class="d-flex align-items-center justify-content-center mb-1">
+                                    <small class="fa fa-star text-primary me-1"></small>
+                                    <small class="fa fa-star text-primary me-1"></small>
+                                    <small class="fa fa-star text-primary me-1"></small>
+                                    <small class="fa fa-star text-primary me-1"></small>
+                                    <small class="fa fa-star text-primary me-1"></small>
+                                    <small>(@item.Quantity)</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+
+            </div>
+        </div>
+        <div style="display: flex;justify-content: center; align-items: center;">
+            @Html.PagedListPager(Model, page => Url.Action("Search", new { key = ViewBag.key, page }),
+            new X.PagedList.Web.Common.PagedListRenderOptions(){
+            LiElementClasses = new List<String> {"page-item"},
+            PageClasses = new List<String> {"page-link"}
+        })
+        </div>
+
+    }
+   @* <div class="pagination-91 py-3">
+        @Html.PagedListPager(Model, page => Url.Action("Search", new { key = ViewBag.key, page }))
+    </div>*@
+</div>
+
+
+
+

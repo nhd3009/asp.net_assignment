@@ -1,0 +1,11 @@
+.user-tab__item:not(:last-child) {
+    border-bottom: 1px solid var(--light-gray-color);
+}
+
+.user-tab__item.active {
+    background-color: var(--primary-color);
+}
+
+.user-favorite__heading {
+    border-bottom: 1px solid var(--light-gray-color);
+}

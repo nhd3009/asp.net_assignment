@@ -1,0 +1,108 @@
+﻿@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@model IEnumerable<BigAssignment.Models.ProductCategory>
+
+@{
+    ViewBag.Title = "Quản lý sản phẩm";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+@if (TempData["Message"] != null)
+{
+    <div class="alert alert-danger">
+        @TempData["Message"]
+    </div>
+}
+
+<section class="content py-2">
+    <div class="container-fluid">
+        <!--Content-->
+        <div class="card">
+            <div class="card-header">
+                <div class="row">
+                    <div class="col-8">
+                        <h5 class="text-csm">@ViewBag.Title</h5>
+                    </div>
+                    <div class="col-4">
+                        <div class="float-right pt-1">
+                            <button type="button" class="btn btn-primary btn-sm">
+                                <a asp-action="AddProduct" asp-controller="FeatureProduct" class="text-white"><i class="fas fa-plus fa-xs"></i>&nbsp; Thêm mới</a>
+                            </button>
+                            <button type="button" class="btn btn-danger btn-sm">
+                                <a asp-action="ProductTrashList" asp-controller="FeatureProduct" class="text-white"><i class="far fa-trash-alt fa-xs"></i>&nbsp; Thùng rác(@(ViewBag.countTrash ?? "?"))</a>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- /.card-header -->
+            <div class="card-body">
+                <table id="product" class="table table-bordered table-hover">
+                    <thead>
+                        <tr>
+                            <th class="no-sort text-center" style="width:2rem;">STT</th>
+                            <th class="no-sort text-center" style="width:2rem;">ID</th>
+                            <th class="no-sort text-center">Hình ảnh</th>
+                            <th class="no-sort">Tên sản phẩm</th>
+                            <th class="no-sort">Danh mục</th>
+                            <th class="no-sort">Khuyến mãi</th>
+                            <th class="no-sort">Status</th>
+                            <th class="no-sort text-center" style="width:8rem">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @{
+                            var stt = 1;
+                        }
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>@stt</td>
+                                <td class="text-center">@Html.DisplayFor(modelItem => item.ProductId)</td>
+                                <td><img src="../template/images/products/@Html.DisplayFor(modelItem => item.ProductImg)" alt="Error" width="70" class="d-block m-auto" />  </td>
+                                <td><a asp-action="ProductDetail" asp-area="admin" asp-route-productId="@item.ProductId">@Html.DisplayFor(modelItem => item.ProductName)</a>  </td>
+                                <td>@Html.DisplayFor(modelItem => item.CategoryName)</td>
+                                <td class="text-center">
+                                    <label class="switch">
+                                        @if (item.ProductDiscount == 1)
+                                        {
+                                            <input class="changeDiscount" data-id="@item.ProductId" data-controller="Product" type="checkbox" checked>
+                                        }
+                                        else
+                                        {
+                                            <input class="changeDiscount" data-id="@item.ProductId" data-controller="Product" type="checkbox">
+                                        }
+                                        <span class="slider round"></span>
+                                    </label>
+
+                                </td>
+                                <td class="text-center">
+                                    <label class="switch">
+                                        @if (item.ProductStatus == 1)
+                                        {
+                                            <input class="changeStatus" data-id="@item.ProductId" data-controller="Product" type="checkbox" checked>
+                                        }
+                                        else
+                                        {
+                                            <input class="changeStatus" data-id="@item.ProductId" data-controller="Product" type="checkbox">
+                                        }
+                                        <span class="slider round"></span>
+                                    </label>
+
+                                    
+                                </td>
+                                <td class="text-center">
+                                    <a asp-action="EditProduct" asp-route-productId="@item.ProductId">Edit</a>
+                                    <form asp-action="PutProductToTrash" method="post">
+                                        <input type="hidden" name="productId" value="@item.ProductId" />
+                                        <button type="submit" class="btn btn-danger">Put to Trash</button>
+                                    </form>
+                                </td>
+                            </tr>
+                            stt++;
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</section>

@@ -1,0 +1,190 @@
+﻿@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin</title>
+    <!-- Font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="../template/fonts/fontawesome-free-5.15.3-web/css/all.min.css">
+    <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <!-- SB Admin -->
+    <link rel="stylesheet" href="../template/css/sb_admin.css">
+    <!-- Datatable -->
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.11.5/css/dataTables.bootstrap5.min.css">
+    <!-- CSS -->
+    <link rel="stylesheet" href="../template/css/base.css">
+    <link rel="stylesheet" href="../template/css/main.css">
+    <link rel="stylesheet" href="../template/css/admin.css">
+    <link rel="stylesheet" href="../template/css/sb_admin.css">
+
+</head>
+<body>
+    <nav class="sb-topnav navbar navbar-expand bg-light justify-content-between">
+        <div class="sb-logo-wrapper d-flex align-items-center justify-content-center">
+            <a href="#" class="sb-logo bg-dark text-light" id="sidebarToggle">
+                <i class="fas fa-tools"></i>
+                Multi Admin
+            </a>
+        </div>
+        <div class="dropdown">
+            <a class="nav-link dropdown-toggle text-dark" id="adminDropDown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                <i class="fas fa-user fa-fw"></i>
+            </a>
+            <ul class="dropdown-menu dropdown-menu-end rounded-0" aria-labelledby="adminDropDown">
+                <li><a href="#" class="dropdown-item" data-bs-toggle="modal" data-bs-target="#modal-profile">Hồ sơ</a></li>
+                <li><a href="#" class="dropdown-item">Đăng xuất</a></li>
+            </ul>
+        </div>
+    </nav>
+    <div id="layoutSidenav">
+        <div id="layoutSidenav_nav">
+            <nav class="sb-sidenav sb-sidenav-dark bg-dark" id="sidenavAccordion">
+                <div class="sb-sidenav-menu">
+                    <div class="nav">
+                        <div class="sb-sidenav-header">
+                            <a href="#" class="nav-link">
+                                <div class="sb-nav-link-icon"><i class="fas fa-home"></i></div>
+                                Bảng điều khiển
+                            </a>
+                        </div>
+                        <div class="sb-sidenav-menu-heading">Quản lý</div>
+                        <a href="#" class="nav-link collapsed" data-bs-toggle="collapse" data-bs-target="#collapseLayouts" 
+                            aria-expanded="false" aria-controls="collapseLayouts">
+                            <div class="sb-nav-link-icon"><i class="fas fa-list"></i></div>
+                            List
+                            <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                        </a>
+                        <div class="collapse" id="collapseLayouts" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
+                            <nav class="sb-sidenav-menu-nested nav">
+                                <a asp-area="admin" asp-controller="FeatureProduct" asp-action="ProductList" class="nav-link">Featured Product</a>
+                                <a asp-area="admin" asp-controller="User" asp-action="UserList" class="nav-link">User</a>
+                                <a asp-area="admin" asp-controller="Category" asp-action="CategoryList" class="nav-link">Category</a>
+                            </nav>
+                        </div>
+                        <a asp-area="admin" asp-controller="Order" asp-action="OrderList" class="nav-link">
+                            <div class="sb-nav-link-icon"><i class="fas fa-shopping-cart"></i></div>
+                            Đơn hàng
+                        </a>
+                        @*<a href="#" class="nav-link">
+                            <div class="sb-nav-link-icon"><i class="fas fa-users"></i></div>
+                            Người dùng
+                        </a>*@
+                        
+                        <a class="nav-link" asp-area="admin" asp-controller="Statistic" asp-action="Statistics">
+                            <div class="sb-nav-link-icon"><i class="fas fa-coins"></i></div>
+                            Doanh thu
+                        </a>
+                    </div>
+                </div>
+            </nav>
+        </div>
+        <div id="layoutSidenav_content">
+            <main>
+                <div class="container-fluid py-3">
+                    @RenderBody()
+                </div>
+            </main>
+        </div>
+    </div>
+    <div class="modal fade" id="modal-profile" tabindex="-1" aria-labelledby="modalUserLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="modal-user">Hồ sơ người dùng</h5>
+              <button type="button" class="btn rounded-0 shadow-none" data-bs-dismiss="modal" aria-label="Close">
+                    <i class="fas fa-times"></i>
+              </button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-12 form-group">
+                        <label>Tên đăng nhập</label>
+                        <input class="form-control shadow-none rounded-0 " type="text">
+                    </div>
+                    <div class="col-12 form-group">
+                        <label>Mật khẩu</label>
+                        <input class="form-control shadow-none rounded-0 " type="password">
+                    </div>
+                    <div class="col-12 form-group">
+                        <label>Tên người dùng</label>
+                        <input class="form-control shadow-none rounded-0 " type="text">
+                    </div>
+                    <div class="col-12 form-group">
+                        <label>Số điện thoại</label>
+                        <input class="form-control shadow-none rounded-0 " type="text">
+                    </div>
+                    <div class="col-12 form-group">
+                        <label>Email</label>
+                        <input class="form-control shadow-none rounded-0 " type="text">
+                    </div>
+                    <div class="col-12">
+                        <label>Địa chỉ</label>
+                        <input class="form-control shadow-none rounded-0 " type="text">
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-primary rounded-0 shadow-none">Lưu người dùng</button>
+            </div>
+          </div>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="../template/js/sb_admin.js"></script>
+    <script src="../template/js/admin.js"></script>
+    <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.11.5/js/dataTables.bootstrap5.min.js"></script>
+
+    <script src="https://cdn.ckeditor.com/ckeditor5/29.2.0/classic/ckeditor.js"></script>
+    <script>
+        $(function () {
+            $(function () {
+                $('textarea').addClass('textarea');
+            });
+            $('textarea.textarea').each(function () {
+                ClassicEditor.create($(this)[0], {
+                    toolbar: {
+                        items: [
+                            'heading',
+                            '|',
+                            'bold',
+                            'italic',
+                            'underline',
+                            'strikethrough',
+                            'link',
+                            '|',
+                            'bulletedList',
+                            'numberedList',
+                            '|',
+                            'alignment',
+                            'indent',
+                            'outdent',
+                            '|',
+                            'imageUpload',
+                            'blockQuote',
+                            'insertTable',
+                            '|',
+                            'undo',
+                            'redo'
+                        ]
+                    },
+                    language: 'vi'
+                });
+            });
+        });
+    </script>
+
+
+
+
+    <div id="fb-root"></div>
+</body>
+</html>

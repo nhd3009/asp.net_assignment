@@ -1,0 +1,19 @@
+﻿@model List<BigAssignment.Models.Menu>
+<div class="navbar-list collapse navbar-collapse justify-content-between" id="navbarCollapse">
+    <div class="navbar-nav">
+        @foreach(var menuitem in Model){
+            <a href="~/@menuitem.Link" class="nav-list_link py-1 nav-link active">@menuitem.Name</a>
+        }
+
+    </div>
+    <div class="navbar-action navbar-nav d-none d-lg-flex">
+        <a href="#" class="navbar-action__item me-3 d-flex align-items-center">
+            <i class="fas fa-heart text-primary me-1"></i>
+            <span class="navbar-action-item__quantity text-light border border-secondary rounded-circle d-block">0</span>
+        </a>
+        <a href="@Url.Action("Cart", "Cart")" class="navbar-action__item d-flex align-items-center">
+            <i class="fas fa-shopping-cart text-primary me-1"></i>
+            <span class="navbar-action-item__quantity text-light border border-secondary rounded-circle d-block">@ViewBag.Count</span>
+        </a>
+    </div>
+</div>

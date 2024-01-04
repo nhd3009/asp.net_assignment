@@ -1,0 +1,113 @@
+﻿@{
+    ViewData["Title"] = "AddUser";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+<style>
+    h1 {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin: 10px;
+    }
+</style>
+<script
+    src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js">
+</script>
+<!-- HTML -->
+<div>
+    <h1>Biểu đồ doanh thu theo tháng</h1>
+    <canvas id="monthly-revenue-chart"></canvas>
+    <h1>Biểu đồ sản phẩm đã bán</h1>
+    <canvas id="myChart"></canvas>
+</div>
+<!-- JavaScript -->
+<script>
+    var monthlyRevenueData = @Html.Raw(Json.Serialize(ViewBag.MonthlyRevenue));
+
+    var chartLabels = monthlyRevenueData.map(function (data) {
+        return data.monthYear.month + '/' + data.monthYear.year;
+    });
+
+    var chartData = monthlyRevenueData.map(function (data) {
+        return data.totalRevenue;
+    });
+
+    var ctx = document.getElementById('monthly-revenue-chart').getContext('2d');
+    var chart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: chartLabels,
+            datasets: [{
+                label: 'Monthly revenue',
+                data: chartData,
+                backgroundColor: 'rgba(54, 162, 235, 0.2)',
+                borderColor: 'rgba(54, 162, 235, 1)',
+                borderWidth: 1
+            }]
+        },
+        options: {
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        beginAtZero: true,
+                        callback: function (value, index, values) {
+                            var parts = value.toString().split(".");
+                            parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+                            return parts.join(".") + 'VND';
+                        }
+                    }
+                }]
+            },
+            tooltips: {
+                callbacks: {
+                    label: function (tooltipItem, data) {
+                        var value = data.datasets[tooltipItem.datasetIndex].data[tooltipItem.index];
+                        var parts = value.toString().split(".");
+                        parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+                        return parts.join(".") + 'VND';
+                    }
+                }
+            }
+        }
+
+    });
+</script>
+
+
+
+<script>
+    var orderdetails = @Html.Raw(Json.Serialize(ViewBag.OrderDetails));
+    var productNames = orderdetails.map(function (detail) {
+        return detail.productName;
+    });
+    var quantities = orderdetails.map(function (detail) {
+        return detail.totalQuantity;
+    });
+
+    function getRandomColor() {
+        var letters = '0123456789ABCDEF';
+        var color = '#';
+        for (var i = 0; i < 6; i++) {
+            color += letters[Math.floor(Math.random() * 16)];
+        }
+        return color;
+    }
+
+    var backgroundColors = [];
+    for (var i = 0; i < quantities.length; i++) {
+        backgroundColors.push(getRandomColor());
+    }
+
+    var ctx = document.getElementById('myChart').getContext('2d');
+    var chart = new Chart(ctx, {
+        type: 'pie',
+        data: {
+            labels: productNames,
+            datasets: [{
+                data: quantities,
+                backgroundColor: backgroundColors
+            }]
+        }
+    });
+</script>
+

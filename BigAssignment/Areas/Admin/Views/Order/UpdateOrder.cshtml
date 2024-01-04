@@ -1,0 +1,69 @@
+﻿@model BigAssignment.Models.Order
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
+@{
+    ViewData["Title"] = "UpdateOrder";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h1>UpdateOrder</h1>
+
+<h4>Order</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="UpdateOrder">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Id" />
+            <div class="form-group">
+                <input type="hidden" asp-for="Code" class="form-control" />
+            </div>
+            <div class="form-group">
+                <input type="hidden" asp-for="UserId" class="form-control" />
+            </div>
+            <div class="form-group">
+                <input type="hidden" asp-for="CreateDate" class="form-control" />
+            </div>
+            <div class="form-group">
+                <input type="hidden" asp-for="ExportDate" class="form-control" />
+            </div>
+            <div class="form-group">
+                <input type="hidden" asp-for="DeliveryAddress" class="form-control" />
+            </div>
+            <div class="form-group">
+                <input type="hidden" asp-for="DeliveryName" class="form-control" />
+            </div>
+            <div class="form-group">
+                <input type="hidden" asp-for="DeliveryPhone" class="form-control" />
+            </div>
+            <div class="form-group">
+                <input type="hidden" asp-for="DeliveryEmail" class="form-control" />
+            </div>
+            <div class="form-group">
+                <select asp-for="Status">
+                    <option value="1" selected="@Model.Status == 1">Chờ xử lý</option>
+                    <option value="2" selected="@Model.Status == 2">Đang xử lý</option>
+                    <option value="3" selected="@Model.Status == 3">Hoàn thành</option>
+                </select>
+
+            </div>
+            <div class="form-group">
+                <input type="hidden" asp-for="Trash" class="form-control" />
+            </div>
+            <div class="form-group">
+                <input type="hidden" asp-for="UpdatedAt" class="form-control" />
+            </div>
+            <div class="form-group">
+                <input type="hidden" asp-for="UpdatedBy" class="form-control" />
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a class="btn btn-primary" asp-action="OrderList">Back to List</a>
+</div>
+

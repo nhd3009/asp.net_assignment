@@ -1,0 +1,104 @@
+﻿@model BigAssignment.Models.Order
+
+@{
+    ViewData["Title"] = "OrderDetail";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h1>OrderDetail</h1>
+
+
+<section class="content py-2">
+    <div class="container-fluid">
+        <!--Content-->
+        <div class="card">
+            <div class="card-header">
+                <div class="row">
+                    <div class="col-8">
+                        <h5 class="text-csm">@ViewBag.Title</h5>
+                    </div>
+                    <div class="col-4">
+                        <div class="float-right pt-1">
+                            <button type="button" class="btn btn-danger btn-sm">
+                                <a href="~/Admin/Order" class="text-white"> <i class="far fa-list-alt"></i>&nbsp; Danh sách đặt hàng</a>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <section class="content">
+                <div class="container-fluid">
+                    <table class="table border">
+                        <thead>
+                            <tr>
+                                <th>Địa chỉ nhận hàng</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Họ tên KH: <b> @Model.DeliveryName</b></td>
+                            </tr>
+                            <tr>
+                                <td>Số điện thoại: <b> @Model.DeliveryPhone</b></td>
+                            </tr>
+                            <tr>
+                                <td>Địa chỉ: <b> @Model.DeliveryAddress</b></td>
+                            </tr>
+                            <tr>
+                                <td>Email: <b> @Model.DeliveryEmail</b></td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <table class="table border">
+                        <thead>
+                            <tr>
+                                <th>Sản phẩm</th>
+                                <th>Giá</th>
+                                <th class="text-center">Số lượng</th>
+                                <th>Tổng</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+
+                            @{
+                                double ThanhTien = 0;
+                                foreach (var c in ViewBag.orderDetails)
+                                {
+                                    ThanhTien += c.Amount;
+                                    <tr>
+                                        @foreach (var y in ViewBag.productOrder)
+                                        {
+                                            if (y.Id == c.ProductId)
+                                            {
+                                                <td> <img src="@Url.Content("../template/images/products/" + y.Image)" alt="@y.Name" width="70">@y.Name</td>
+                                            }
+                                        }
+                                        <td>    @String.Format("{0:0,0₫}", c.Price)</td>
+                                        <td class="text-center">x    @c.Quantity</td>
+                                        <td>    @String.Format("{0:0,0₫}", c.Amount) </td>
+                                    </tr>
+                                }
+                            }
+
+                            <tr class="border-top">
+                                <td class="text-right" colspan="3"> Thành tiền</td>
+                                <td>@String.Format("{0:0,0₫}", ThanhTien) </td>
+                            </tr>
+                            <tr>
+                                <td class="text-right" colspan="3"> Phí vận chuyển</td>
+                                <td>@String.Format("{0:0₫}", 0) </td>
+                            </tr>
+                            <tr>
+                                <td class="text-right" colspan="3"> Tổng cộng </td>
+                                <td>@String.Format("{0:0,0₫}", ThanhTien) </td>
+                            </tr>
+
+                        </tbody>
+                    </table>
+                    <!-- /.card -->
+                </div>
+            </section>
+        </div>
+    </div>
+</section>

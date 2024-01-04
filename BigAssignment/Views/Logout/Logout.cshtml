@@ -1,0 +1,21 @@
+﻿
+@{
+    ViewData["Title"] = "Logout";
+    Layout = "~/Views/Home/Index.cshtml";
+}
+<a id="logout-btn" class="navbar-action__item d-flex align-items-center">
+    <i class="fa fa-sign-out" style="font-size:24px"></i>
+
+</a>
+<script>
+    var logoutBtn = document.getElementById('logout-btn');
+    logoutBtn.addEventListener('click', function (event) {
+        event.preventDefault();
+        var confirmLogout = confirm("Are you sure you want to log out?");
+        if (confirmLogout) {
+            window.location.href = "/Auth/Logout";
+        } else {
+            alert("Logout canceled.");
+        }
+    });
+</script>
